@@ -2,7 +2,7 @@ from typing import Annotated
 import uvicorn
 from fastapi import Body, FastAPI
 from pydantic import BaseModel
-from fast_api.router import rent_app
+from app.router import rent_app
 from src.database.db import init_db
 
 # 启动时创建表（确保只运行一次）
@@ -13,4 +13,4 @@ app.include_router(rent_app)
 
 # 以下代码可以使用户直接利用uvicorn运行此web应用，只需python -m main
 if __name__ == "__main__":
-    uvicorn.run("fast_api.main:app")
+    uvicorn.run("app.main:app")

@@ -31,25 +31,26 @@ def reset_flats_table(session):
 
 
 def insert_dataframe_to_db(df):
+    # session = SessionLocal()
+    # reset_flats_table(session)
     session = SessionLocal()
-    reset_flats_table(session)
+
     try:
         flats = []
         for _, row in df.iterrows():
             flat = FlatsToRent(
-                unique_id=row["Unique_Id"],
-                location=row["Location"],
-                property_type=row["Property_Type"],
-                address=row["Address"],
-                rent=row["Rent"],
-                price=row["Price"],
-                base=row["Base"],
-                number_of_bedroom=int(row["Number_Of_Bedroom"]) if pd.notnull(row["Number_Of_Bedroom"]) else None,
-                number_of_bathroom=int(row["Number_Of_Bathroom"]) if pd.notnull(row["Number_Of_Bathroom"]) else None,
-                description=row["Description"],
-                link = row["Link"],
-                run_time=row["Run_Time"].date() # if isinstance(row["Run_Time"], datetime) else datetime.now().date()
-
+                unique_id=row["unique_id"],
+                location=row["location"],
+                property_type=row["property_type"],
+                address=row["address"],
+                rent=row["rent"],
+                price=row["price"],
+                base=row["base"],
+                number_of_bedroom=int(row["number_of_bedroom"]) if pd.notnull(row["number_of_bedroom"]) else None,
+                number_of_bathroom=int(row["number_of_bathroom"]) if pd.notnull(row["number_of_bathroom"]) else None,
+                description=row["description"],
+                link = row["link"],
+                run_time=row["run_time"].date() # if isinstance(row["Run_Time"], datetime) else datetime.now().date()
             )
             flats.append(flat)
 
@@ -76,6 +77,7 @@ def extract(apart, type, class_name, extra_type = None, href = False):
 
 def run(url: str, 
         headers: dict,
+        loc_code: str,
         l_id: list,
         l_property_type: list,
         l_rent: list,
@@ -99,7 +101,7 @@ def run(url: str,
 
     for apart in apartments:
         # create id: page number + item number + run time
-        id = str(page+1) + "|" + str(index) + "|" + str(ct).replace(" ","|")
+        id = loc_code + str(page+1) + "|" + str(index) + "|" + str(ct).replace(" ","|")
         l_id.append(id)
         # extract property type
         property_type = extract(apart, "span", "PropertyInformation_propertyType__u8e76")
@@ -134,15 +136,16 @@ def run(url: str,
 
 
 
-def wrapper(location_name: str,
+def wrapper(loc_name: str,
+            loc_code: str,
             pages: int = 42):
     headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
         }
     index = 0
-    url_first_pqge = f"https://www.rightmove.co.uk/property-to-rent/find.html?searchLocation={location_name}+%28London+Borough%29&useLocationIdentifier=true&locationIdentifier=REGION%5E93965&rent=To+rent&radius=0.0&propertyTypes=flat&_includeLetAgreed=on&index={index}&sortType=6&channel=RENT&transactionType=LETTING&displayLocationIdentifier={location_name}"
+    url_first_page = f"https://www.rightmove.co.uk/property-to-rent/find.html?&useLocationIdentifier=true&locationIdentifier=REGION%{loc_code}&rent=To+rent&radius=0.0&propertyTypes=flat&_includeLetAgreed=on&index=0&sortType=6&channel=RENT&transactionType=LETTING&displayLocationIdentifier={loc_name}"
     
-    res = requests.get(url_first_pqge, headers=headers) 
+    res = requests.get(url_first_page, headers=headers) 
     # check status
     res.raise_for_status()  
     soup = BeautifulSoup(res.text, "html.parser")
@@ -163,9 +166,11 @@ def wrapper(location_name: str,
 
     for p in range(pages):
         print(f"inspecting page: {p+1}...")
-        url = f"https://www.rightmove.co.uk/property-to-rent/find.html?searchLocation={location_name}+%28London+Borough%29&useLocationIdentifier=true&locationIdentifier=REGION%5E93965&rent=To+rent&radius=0.0&propertyTypes=flat&_includeLetAgreed=on&index={index}&sortType=6&channel=RENT&transactionType=LETTING&displayLocationIdentifier={location_name}"
+        url = f"https://www.rightmove.co.uk/property-to-rent/find.html?&useLocationIdentifier=true&locationIdentifier=REGION%{loc_code}&rent=To+rent&radius=0.0&propertyTypes=flat&_includeLetAgreed=on&index={index}&sortType=6&channel=RENT&transactionType=LETTING&displayLocationIdentifier={loc_name}"
+    
         run(url, 
             headers,
+            loc_code,
             l_id,
             l_property_type,
             l_rent,
@@ -182,42 +187,43 @@ def wrapper(location_name: str,
         if index >= number_of_results:
             break
 
-    data = {"Unique_Id": l_id,
-            "Location": [location_name for i in range(len(l_id))],
-            "Property_Type": l_property_type,
-            "Address": l_address,
-            "Rent": l_rent,
-            "Price": l_price,
-            "Base": l_base,
-            "Number_Of_Bedroom": l_bedroom,
-            "Number_Of_Bathroom": l_bathroom,
-            "Description": l_description,
-            "Link": l_link }
+    data = {"unique_id": l_id,
+            "location": [loc_name for i in range(len(l_id))],
+            "property_type": l_property_type,
+            "address": l_address,
+            "rent": l_rent,
+            "price": l_price,
+            "base": l_base,
+            "number_of_bedroom": l_bedroom,
+            "number_of_bathroom": l_bathroom,
+            "description": l_description,
+            "link": l_link }
     
     df_result = pd.DataFrame(data)
 
     length_original = len(df_result)
-    df_result = df_result.drop_duplicates(subset=["Location",
-                                                  "Property_Type",
-                                                  "Address",
-                                                  "Rent",
-                                                  "Price",
-                                                  "Base",
-                                                  "Number_Of_Bedroom",
-                                                  "Number_Of_Bathroom",
-                                                  "Description",
-                                                  "Link"])
+    df_result = df_result.drop_duplicates(subset=["location",
+                                                  "property_type",
+                                                  "address",
+                                                  "rent",
+                                                  "price",
+                                                  "base",
+                                                  "number_of_bedroom",
+                                                  "number_of_bathroom",
+                                                  "description",
+                                                  "link"])
     length_dedup = len(df_result)
     if length_dedup < length_original:
         print(f"{length_original - length_dedup} duplicates found")
 
-    df_result["Run_Time"] = ct
+    df_result["run_time"] = ct
 
     # insert the data into local sql db
     insert_dataframe_to_db(df_result)
     return df_result
 
 if __name__ == "__main__":
-    location_name = "Islington"
-    df_result = wrapper(location_name)
+    location_name = "Elephant-and-Castle"
+    location_code = "5E70312"
+    df_result = wrapper(location_name, location_code, pages=3)
     df_result.to_csv(f"/Users/sqwu/property_api/property_api/files/output/result_{location_name}_{str(ct)}.csv")
