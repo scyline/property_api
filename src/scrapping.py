@@ -5,8 +5,8 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from .database.db import SessionLocal, FlatsToRent, init_db
+import src.scoring as sc
 
-init_db()
 ts = time.time()
 ct = datetime.datetime.now()
 print("current time:", ct)
@@ -31,8 +31,6 @@ def reset_flats_table(session):
 
 
 def insert_dataframe_to_db(df):
-    # session = SessionLocal()
-    # reset_flats_table(session)
     session = SessionLocal()
 
     try:
@@ -50,7 +48,10 @@ def insert_dataframe_to_db(df):
                 number_of_bathroom=int(row["number_of_bathroom"]) if pd.notnull(row["number_of_bathroom"]) else None,
                 description=row["description"],
                 link = row["link"],
-                run_time=row["run_time"].date() # if isinstance(row["Run_Time"], datetime) else datetime.now().date()
+                price_score = row["price_score"],
+                confort_score = row["confort_score"],
+                combined_score = row["combined_score"],
+                run_time=row["run_time"].date()
             )
             flats.append(flat)
 
@@ -218,12 +219,23 @@ def wrapper(loc_name: str,
 
     df_result["run_time"] = ct
 
+    # score properties
+    df_result = sc.combined_score(df_result,
+                                  "price",
+                                  "number_of_bedroom",
+                                  "number_of_bathroom")
+
     # insert the data into local sql db
     insert_dataframe_to_db(df_result)
     return df_result
 
 if __name__ == "__main__":
-    location_name = "Elephant-and-Castle"
-    location_code = "5E70312"
+    init_db()
+    # location_name = "Elephant-and-Castle"
+    # location_code = "5E70312"
+    # location_name = "Richmond-Upon-Thames"
+    # location_code = "5E61415"
+    location_name = "Islington"
+    location_code = "5E93965"
     df_result = wrapper(location_name, location_code, pages=3)
-    df_result.to_csv(f"/Users/sqwu/property_api/property_api/files/output/result_{location_name}_{str(ct)}.csv")
+    # df_result.to_csv(f"/Users/sqwu/property_api/property_api/files/output/result_{location_name}_{str(ct)}.csv")

@@ -2,7 +2,7 @@ from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
 # SQLite 连接（文件名为 tasks.db）
 SQLALCHEMY_DATABASE_URL = "sqlite:///./tasks.db"
 
@@ -27,6 +27,9 @@ class FlatsToRent(Base):
     number_of_bathroom = Column(Integer)
     description = Column(String(500))
     link = Column(String(100))
+    price_score = Column(Float)
+    confort_score = Column(Float)
+    combined_score = Column(Float)
     run_time = Column(Date)
 
 
@@ -36,10 +39,10 @@ def init_db():
     # if os.path.exists("./tasks.db"):
     #     os.remove("./tasks.db")
 
-    # 创建所有表
+    # Create all tables
     Base.metadata.create_all(bind=engine)
 
     # 验证表和数据
     from sqlalchemy import inspect
     inspector = inspect(engine)
-    print(f"已创建的表: {inspector.get_table_names()}")
+    print(f"Tables in DB: {inspector.get_table_names()}")

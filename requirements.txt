@@ -8,3 +8,6 @@ uvicorn
 sqlalchemy
 pydantic
 bs4
+streamlit
+plotly
+scipy

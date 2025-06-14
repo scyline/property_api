@@ -1,19 +1,18 @@
-from fastapi import APIRouter
-from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy.orm import Session
 import pandas as pd
 import numpy as np
+import logging
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+from sqlalchemy.exc import SQLAlchemyError
 from src.database import db
 from src.scrapping import wrapper
-# from ..src.database.db import SessionLocal, engine
-# from .schema import TaskCreate, TaskResponse
-import logging
-from sqlalchemy.exc import SQLAlchemyError
+
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 rent_app = APIRouter()
+
 
 def get_db():
     database = db.SessionLocal()
@@ -86,9 +85,13 @@ async def scrap_location(loc_name: str,
 
 @rent_app.get("/rent")
 async def get_stats_basic(database: Session = Depends(get_db)):
-    tasks = database.query(db.FlatsToRent).all()
-    df_tasks = pd.DataFrame([task.__dict__ for task in tasks])
-    stats_global = df_tasks.groupby(["location"])["price"].agg(['count', 'min', 'max']).reset_index()
+    data = database.query(db.FlatsToRent).all()
+    df = pd.DataFrame([r.__dict__ for r in data])
+    if df.empty:
+        logger.warning("No data found.")
+        return {"message": "No properties found."}
+    else:
+        stats_global = df.groupby(["location"])["price"].agg(['count', 'min', 'max']).reset_index()
     
     # Convert to dictionary for JSON response
     stats_dict = stats_global.to_dict(orient='records')
@@ -102,12 +105,17 @@ async def get_stat(database: Session = Depends(get_db),
                    number_of_bedroom: int = None,
                    number_of_bathroom: int = None):
     
-    tasks = database.query(db.FlatsToRent).all()
-    df_tasks = pd.DataFrame([task.__dict__ for task in tasks])
-    df_tasks["property_type"] = np.where(df_tasks["property_type"].isin(["Apartment", "Flat"]),
+    data = database.query(db.FlatsToRent).all()
+    df = pd.DataFrame([r.__dict__ for r in data])
+    if df.empty:
+        logger.warning("No data found for the given condition(s)")
+        return {"message": "No data found for the given condition(s)"}
+    else:
+        df["property_type"] = np.where(df["property_type"].isin(["Apartment", "Flat"]),
                                          "Apartment/Flat",
-                                         df_tasks["property_type"])
-    stats = df_tasks.groupby(["location",
+                                         df["property_type"])
+    
+    stats = df.groupby(["location",
                               "property_type",
                               "number_of_bedroom",
                               "number_of_bathroom"])["price"].agg(['mean', 'count', 'min', 'max']).reset_index()
@@ -167,34 +175,3 @@ async def delete_rentals(
             status_code=500,
             detail=f"Error deleting records: {str(e)}"
         )
-
-
-# @tasks_app.get("/tasks")
-# async def get_t(db: Session = Depends(get_db)):
-#     tasks = db.query(db.FlatsToRent).all()
-#     return tasks
-
-# @tasks_app.post("/tasks/", response_model=TaskResponse)
-# def create_task(task: TaskCreate, db: Session = Depends(get_db)):
-#     db_task = tasks.Task(**task.dict())
-#     db.add(db_task)
-#     db.commit()
-#     db.refresh(db_task)
-#     return db_task
-
-# @tasks_app.get("/tasks/{task_id}")
-# async def get_one_task(task_id: int, db: Session = Depends(get_db)):
-#     task = db.query(tasks.Task).filter_by(task_id = task_id).first()
-#     return task
-
-# @tasks_app.delete("/tasks/{task_id}")
-# async def delete_task(task_id: int, db: Session = Depends(get_db)):
-#     db.query(tasks.Task).filter_by(task_id = task_id).delete()
-#     db.commit()
-#     return f"deleted task:{task_id}"
-
-# @tasks_app.delete("/tasks")
-# async def delete_all(db: Session = Depends(get_db)):
-#     db.query(tasks.Task).delete()
-#     db.commit()
-#     return "deleted all records"

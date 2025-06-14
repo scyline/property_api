@@ -1,6 +1,8 @@
 ## Objectives
 - Collect rent data in London borough
 - Generate statistic by group, such as average rent by property type or number of bedrooms
+- Create a method to score properties
+- Score properties and display the average score of each zone
 
 ## Functions/methods to create
 - a collect method to collect the data in a specific borough or a list of borough. It also needs to return a number of basic statistics.
