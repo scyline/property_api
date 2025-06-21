@@ -1,12 +1,17 @@
-from typing import Annotated
 import uvicorn
 from fastapi import Body, FastAPI
-from pydantic import BaseModel
 from app.router import rent_app
 from src.database.db import init_db
+from sqlalchemy import inspect
+from src.database.db import engine
+
+inspector = inspect(engine)
+print(f"Tables in DB: {inspector.get_table_names()}")
 
 # 启动时创建表（确保只运行一次）
-init_db()  # 👈 调用创建表的函数
+if "flats_to_rent" not in inspector.get_table_names():
+    init_db()
+
 app = FastAPI()
 
 app.include_router(rent_app)

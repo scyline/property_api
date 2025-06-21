@@ -3,7 +3,6 @@ from src.database import db
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore') # To supress warnings
 sns.set(style="darkgrid") # set the background for the graphs
@@ -17,11 +16,12 @@ def load_data():
     return df
 
 def create_heatmap_data(df):
+    price = 'price_per_room'
     """Generate two pivot tables: counts and avg prices"""
     count_pivot = df.pivot_table(
         index='number_of_bedroom',
         columns='number_of_bathroom',
-        values='price',
+        values=price,
         aggfunc='count',
         fill_value=0
     ).sort_index(ascending=False)
@@ -29,7 +29,7 @@ def create_heatmap_data(df):
     price_pivot = df.pivot_table(
         index='number_of_bedroom',
         columns='number_of_bathroom',
-        values='price',
+        values=price,
         aggfunc='mean',
         fill_value=0
     ).sort_index(ascending=False)
@@ -37,10 +37,11 @@ def create_heatmap_data(df):
     return count_pivot, price_pivot
 
 def price_dist(df, zone, fig, ax):
-    df_plot = df[df['location'] == zone]
-    mean = df_plot['price'].mean()
-    min = int(df['price'].max())
-    max = int(df['price'].min())
+    price = 'price_per_room'
+    df_plot = df[df['postcode'] == zone]
+    mean = df_plot[price].mean()
+    min = int(df[price].max())
+    max = int(df[price].min())
     
     # Define your fixed range
     PRICE_RANGE = [max, min]
@@ -50,7 +51,7 @@ def price_dist(df, zone, fig, ax):
     bins = np.linspace(max, min, N_BINS+1)
     
     # Plot histogram with fixed bins
-    ax.hist(df_plot['price'], bins=bins, color='#FF4B4B', alpha=0.5)
+    ax.hist(df_plot[price], bins=bins, color='#FF4B4B', alpha=0.5)
     
     # Force x-axis limits
     ax.set_xlim(PRICE_RANGE)

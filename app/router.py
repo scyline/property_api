@@ -3,10 +3,12 @@ import numpy as np
 import logging
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import SQLAlchemyError
 from src.database import db
 from src.scrapping import wrapper
+import time 
+import datetime
 
+ts = time.time()
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -21,65 +23,36 @@ def get_db():
     finally:
         database.close()
 
-
-
 @rent_app.post("/rent")
-async def scrap_location(loc_name: str,
+async def scrap_location(postcode: str,
                          loc_code: str,
                          database: Session = Depends(get_db),
                          pages: int = None):
     try:
         # Run the scraper
-        logger.info(f"Starting scraping process for location: {loc_name}")
+        logger.info(f"Starting scraping process for postcode: {postcode}, time: {datetime.datetime.now()}")
         if pages is not None:
-            df_result = wrapper(loc_name, loc_code, pages=pages)
+            df_result = wrapper(postcode, loc_code, pages=pages)
         else:
-            df_result = wrapper(loc_name, loc_code)
+            df_result = wrapper(postcode, loc_code)
         
+        logger.info(f"Scraping process completed, time: {datetime.datetime.now()}")
         # Validate we got data
         if df_result.empty:
-            logger.warning(f"No data found for location: {loc_name}")
-            return {"message": f"No properties found for {loc_name}", "inserted_count": 0}
+            logger.warning(f"No data found for postcode: {postcode}")
+            return {"message": f"No properties found for {postcode}", "inserted_count": 0}
         
-        # Prepare data for insertion
-        records = df_result.to_dict(orient='records')
-        inserted_count = 0
+        inserted_count = len(df_result)
         
-        # Insert records in batches for better performance
-        batch_size = 100
-        for i in range(0, len(records), batch_size):
-            batch = records[i:i + batch_size]
-            try:
-                database.bulk_insert_mappings(db.FlatsToRent, batch)
-                database.commit()
-                inserted_count += len(batch)
-                logger.info(f"Inserted batch {i//batch_size + 1}: {len(batch)} records")
-            except SQLAlchemyError as e:
-                database.rollback()
-                logger.error(f"Error inserting batch {i//batch_size + 1}: {str(e)}")
-                # Try inserting records one by one to identify problematic records
-                for record in batch:
-                    try:
-                        database.add(db.FlatsToRent(**record))
-                        database.commit()
-                        inserted_count += 1
-                    except Exception as single_e:
-                        database.rollback()
-                        logger.error(f"Failed to insert record: {record}. Error: {str(single_e)}")
-        
-        logger.info(f"Scraping completed for {loc_name}. Inserted {inserted_count} new records")
         return {
-            "message": f"Successfully scraped and inserted {inserted_count} properties for {loc_name}",
-            "inserted_count": inserted_count,
-            "total_found": len(df_result),
-            "failed_inserts": len(df_result) - inserted_count
+            "message": f"Successfully scraped and inserted {inserted_count} properties for {postcode}"
         }
     
     except Exception as e:
-        logger.error(f"Error in scraping process for {loc_name}: {str(e)}", exc_info=True)
+        logger.error(f"Error in scraping process for {postcode}: {str(e)}", exc_info=True)
         raise HTTPException(
             status_code=500,
-            detail=f"Scraping failed for {loc_name}: {str(e)}"
+            detail=f"Scraping failed for {postcode}: {str(e)}"
         )
     
 
@@ -91,7 +64,7 @@ async def get_stats_basic(database: Session = Depends(get_db)):
         logger.warning("No data found.")
         return {"message": "No properties found."}
     else:
-        stats_global = df.groupby(["location"])["price"].agg(['count', 'min', 'max']).reset_index()
+        stats_global = df.groupby(["postcode"])["price"].agg(['count', 'min', 'max']).reset_index()
     
     # Convert to dictionary for JSON response
     stats_dict = stats_global.to_dict(orient='records')
@@ -100,7 +73,7 @@ async def get_stats_basic(database: Session = Depends(get_db)):
 
 @rent_app.get("/rent/stats")
 async def get_stat(database: Session = Depends(get_db),
-                   location: str = None,
+                   postcode: str = None,
                    property_type: str = None,
                    number_of_bedroom: int = None,
                    number_of_bathroom: int = None):
@@ -115,13 +88,13 @@ async def get_stat(database: Session = Depends(get_db),
                                          "Apartment/Flat",
                                          df["property_type"])
     
-    stats = df.groupby(["location",
+    stats = df.groupby(["postcode",
                               "property_type",
                               "number_of_bedroom",
                               "number_of_bathroom"])["price"].agg(['mean', 'count', 'min', 'max']).reset_index()
     
-    if location is not None:
-        stats = stats[stats["location"] == location]
+    if postcode is not None:
+        stats = stats[stats["postcode"] == postcode]
 
     if property_type is not None:
         stats = stats[stats["property_type"] == property_type]
@@ -140,7 +113,7 @@ async def get_stat(database: Session = Depends(get_db),
 @rent_app.delete("/rent")
 async def delete_rentals(
     database: Session = Depends(get_db),
-    location: str = None,
+    postcode: str = None,
     property_type: str = None
 ):
     try:
@@ -148,8 +121,8 @@ async def delete_rentals(
         query = database.query(db.FlatsToRent)
         
         # Apply filters if provided
-        if location:
-            query = query.filter(db.FlatsToRent.location == location)
+        if postcode:
+            query = query.filter(db.FlatsToRent.postcode == postcode)
         if property_type:
             # Handle both "Apartment" and "Flat" if user searches for "Apartment/Flat"
             if property_type.lower() == "apartment/flat":

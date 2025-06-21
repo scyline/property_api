@@ -29,12 +29,10 @@ def price_score(df: pd.DataFrame,
     df[col_nb_bathroom] = df[col_nb_bathroom].fillna('1').astype(int)
     df[col_price] = df[col_price].astype(float)
     # calculate raw score
-    df["price_score"] = np.where((df[col_nb_bathroom] == -1) | (df[col_nb_bedroom] == -1), 
-                                 np.nan,    
-                                 np.where(df[col_nb_bathroom] == 1,
+    df["price_score"] = np.where(df[col_nb_bathroom] == 1,
                                  (df[col_nb_bedroom] + df[col_nb_bathroom]/3)/df[col_price],
                                  # if there are more than 1 bathroom, we assume there's one ensuite room
-                                 (df[col_nb_bedroom] + (df[col_nb_bathroom]-1)/3)/df[col_price]))
+                                 (df[col_nb_bedroom] + (df[col_nb_bathroom]-1)/3)/df[col_price])
     # normalise score
     df = tanh_normalization(df, "price_score", 1000)
     return df
@@ -48,7 +46,7 @@ def confort_score(df: pd.DataFrame,
     df["confort_score"] = np.where(df[col_nb_bathroom] == 1,
                                    df[col_nb_bathroom]/df[col_nb_bedroom],
                                    # if there are more than 1 bathroom, we assume there's one ensuite room
-                                   (df[col_nb_bathroom] - 1)/df[col_nb_bedroom])
+                                   (df[col_nb_bathroom] - 1)/(df[col_nb_bedroom] - 1))
     # normalise score
     df["confort_score"] = np.minimum(df["confort_score"] * 10, 10)
     return df
