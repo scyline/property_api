@@ -1,0 +1,274 @@
+,ATCOCode,CommonName
+430690,9400ZZALGWP,IFS Cloud Greenwich Peninsula
+430692,9400ZZALRDK,IFS Cloud Royal Docks
+430909,9400ZZCRADV,Addington Village Tram Stop
+430915,9400ZZCRARA,Arena Tram Stop
+430918,9400ZZCRAVE,Avenue Road Tram Stop
+430921,9400ZZCRBED,Beddington Lane Tram Stop
+430924,9400ZZCRBEK,Beckenham Junction Tram Stop
+430927,9400ZZCRBGV,Belgrave Walk Tram Stop
+430930,9400ZZCRBIR,Birkbeck Tram Stop
+430932,9400ZZCRBLA,Blackhorse Lane Tram Stop
+430935,9400ZZCRBRD,Beckenham Road Tram Stop
+430937,9400ZZCRCEN,George Street Tram Stop
+430939,9400ZZCRCHR,Church Street Tram Stop
+430941,9400ZZCRCOO,Coombe Lane Tram Stop
+430944,9400ZZCRCTR,Centrale Tram Stop
+430946,9400ZZCRDDR,Dundonald Road Tram Stop
+430949,9400ZZCRECR,East Croydon Tram Stop
+430953,9400ZZCRELM,Elmers End Tram Stop
+430955,9400ZZCRFLD,Fieldway Tram Stop
+430958,9400ZZCRGRA,Gravel Hill Tram Stop
+430961,9400ZZCRHAR,Harrington Road Tram Stop
+430964,9400ZZCRKGH,King Henry's Drive Tram Stop
+430973,9400ZZCRMCH,Mitcham Tram Stop
+430976,9400ZZCRMDN,Morden Road Tram Stop
+430979,9400ZZCRMJT,Mitcham Junction Tram Stop
+430982,9400ZZCRMTP,Merton Park Tram Stop
+430985,9400ZZCRNWA,New Addington Tram Stop
+430988,9400ZZCRPHI,Phipps Bridge Tram Stop
+430991,9400ZZCRRVC,Reeves Corner Tram Stop
+431005,9400ZZCRWCR,West Croydon Tram Stop
+431007,9400ZZCRWEL,Wellesley Road Tram Stop
+431009,9400ZZCRWMB,Wimbledon Tram Stop
+431012,9400ZZCRWOD,Woodside Tram Stop
+431024,9400ZZDLABR,Abbey Road DLR Station
+431027,9400ZZDLALL,All Saints DLR Station
+431030,9400ZZDLBEC,Beckton DLR Station
+431032,9400ZZDLBLA,Blackwall DLR Station
+431037,9400ZZDLBOW,Bow Church DLR Station
+431040,9400ZZDLBPK,Beckton Park DLR Station
+431043,9400ZZDLCAN,Canary Wharf DLR Station
+431046,9400ZZDLCGT,Canning Town DLR Station
+431051,9400ZZDLCLA,Crossharbour DLR Station
+431054,9400ZZDLCUS,Custom House (for ExCel) DLR Station
+431056,9400ZZDLCUT,Cutty Sark (for Maritime Greenwich) DLR Station
+431058,9400ZZDLCYP,Cyprus DLR Station
+431061,9400ZZDLDEP,Deptford Bridge DLR Station
+431067,9400ZZDLEIN,East India DLR Station
+431073,9400ZZDLGAL,Gallions Reach DLR Station
+431076,9400ZZDLGRE,Greenwich DLR Station
+431079,9400ZZDLHEQ,Heron Quays DLR Station
+431082,9400ZZDLISL,Island Gardens DLR Station
+431084,9400ZZDLKGV,King George V DLR Station
+431086,9400ZZDLLCA,London City Airport DLR Station
+431088,9400ZZDLLDP,Langdon Park DLR Station
+431091,9400ZZDLLEW,Lewisham DLR Station
+431093,9400ZZDLLIM,Limehouse DLR Station
+431096,9400ZZDLMUD,Mudchute DLR Station
+431099,9400ZZDLPDK,Pontoon Dock DLR Station
+431102,9400ZZDLPOP,Poplar DLR Station
+431108,9400ZZDLPUD,Pudding Mill Lane DLR Station
+431111,9400ZZDLRAL,Royal Albert DLR Station
+431114,9400ZZDLRVC,Royal Victoria DLR Station
+431117,9400ZZDLSHA,Shadwell DLR Station
+431119,9400ZZDLSHS,Stratford High Street DLR Station
+431122,9400ZZDLSIT,Stratford International DLR Station
+431125,9400ZZDLSOQ,South Quay DLR Station
+431128,9400ZZDLSTD,Stratford DLR Station
+431133,9400ZZDLSTL,Star Lane DLR Station
+431136,9400ZZDLTWG,Tower Gateway DLR Station
+431138,9400ZZDLWFE,Westferry DLR Station
+431141,9400ZZDLWHM,West Ham DLR Station
+431144,9400ZZDLWIQ,West India Quay DLR Station
+431147,9400ZZDLWLA,Woolwich Arsenal DLR Station
+431150,9400ZZDLWSV,West Silvertown DLR Station
+431331,9400ZZLUACY,Archway Underground Station
+431333,9400ZZLUADE,Aldgate East Underground Station
+431336,9400ZZLUAGL,Angel Underground Station
+431343,9400ZZLUALP,Alperton Underground Station
+431349,9400ZZLUASG,Arnos Grove Underground Station
+431353,9400ZZLUASL,Arsenal Underground Station
+431356,9400ZZLUBBB,Bromley-by-Bow Underground Station
+431359,9400ZZLUBBN,Barbican Underground Station
+431362,9400ZZLUBDS,Bounds Green Underground Station
+431364,9400ZZLUBEC,Becontree Underground Station
+431367,9400ZZLUBKE,Barkingside Underground Station
+431370,9400ZZLUBKF,Blackfriars Underground Station
+431373,9400ZZLUBKG,Barking Underground Station
+431380,9400ZZLUBLG,Bethnal Green Underground Station
+431382,9400ZZLUBLM,Balham Underground Station
+431386,9400ZZLUBMY,Bermondsey Underground Station
+431389,9400ZZLUBND,Bond Street Underground Station
+431400,9400ZZLUBOR,Borough Underground Station
+431403,9400ZZLUBOS,Boston Manor Underground Station
+431406,9400ZZLUBSC,Barons Court Underground Station
+431420,9400ZZLUBTK,Burnt Oak Underground Station
+431424,9400ZZLUBWR,Bow Road Underground Station
+431427,9400ZZLUBWT,Bayswater Underground Station
+431430,9400ZZLUBXN,Brixton Underground Station
+431432,9400ZZLUBZP,Belsize Park Underground Station
+431438,9400ZZLUCAR,Caledonian Road Underground Station
+431440,9400ZZLUCFM,Chalk Farm Underground Station
+431442,9400ZZLUCGN,Covent Garden Underground Station
+431445,9400ZZLUCGT,Canning Town Underground Station
+431451,9400ZZLUCHX,Charing Cross Underground Station
+431457,9400ZZLUCKS,Cockfosters Underground Station
+431459,9400ZZLUCND,Colindale Underground Station
+431461,9400ZZLUCPC,Clapham Common Underground Station
+431466,9400ZZLUCPN,Clapham North Underground Station
+431468,9400ZZLUCPS,Clapham South Underground Station
+431470,9400ZZLUCSD,Colliers Wood Underground Station
+431477,9400ZZLUCTN,Camden Town Underground Station
+431485,9400ZZLUCWP,Chiswick Park Underground Station
+431488,9400ZZLUCWR,Canada Water Underground Station
+431498,9400ZZLUCYF,Canary Wharf Underground Station
+431506,9400ZZLUDGY,Dagenham Heathway Underground Station
+431509,9400ZZLUDOH,Dollis Hill Underground Station
+431511,9400ZZLUEAC,Elephant & Castle Underground Station
+431516,9400ZZLUEAE,Eastcote Underground Station
+431535,9400ZZLUEFY,East Finchley Underground Station
+431538,9400ZZLUEGW,Edgware Underground Station
+431540,9400ZZLUEHM,East Ham Underground Station
+431543,9400ZZLUEMB,Embankment Underground Station
+431553,9400ZZLUEPK,Elm Park Underground Station
+431555,9400ZZLUEPY,East Putney Underground Station
+431566,9400ZZLUESQ,Euston Square Underground Station
+431569,9400ZZLUEUS,Euston Underground Station
+431579,9400ZZLUFCN,Farringdon Underground Station
+431584,9400ZZLUFLP,Fairlop Underground Station
+431587,9400ZZLUFPK,Finsbury Park Underground Station
+431600,9400ZZLUGBY,Gunnersbury Underground Station
+431602,9400ZZLUGDG,Goodge Street Underground Station
+431604,9400ZZLUGFD,Greenford Underground Station
+431610,9400ZZLUGGN,Golders Green Underground Station
+431613,9400ZZLUGHK,Goldhawk Road Underground Station
+431616,9400ZZLUGPK,Green Park Underground Station
+431622,9400ZZLUGPS,Great Portland Street Underground Station
+431625,9400ZZLUGTH,Gants Hill Underground Station
+431633,9400ZZLUHAI,Highbury & Islington Underground Station
+431639,9400ZZLUHBN,Holborn Underground Station
+431644,9400ZZLUHBT,High Barnet Underground Station
+431646,9400ZZLUHCH,Hornchurch Underground Station
+431651,9400ZZLUHGD,Hillingdon Underground Station
+431654,9400ZZLUHGR,Hanger Lane Underground Station
+431656,9400ZZLUHGT,Highgate Underground Station
+431658,9400ZZLUHLT,Hainault Underground Station
+431661,9400ZZLUHNX,Hatton Cross Underground Station
+431663,9400ZZLUHOH,Harrow-on-the-Hill Underground Station
+431666,9400ZZLUHPC,Hyde Park Corner Underground Station
+431668,9400ZZLUHPK,Holland Park Underground Station
+431678,9400ZZLUHSC,Hammersmith (H&C Line) Underground Station
+431680,9400ZZLUHSD,Hammersmith (Dist&Picc Line) Underground Station
+431688,9400ZZLUHSN,Harlesden Underground Station
+431691,9400ZZLUHTD,Hampstead Underground Station
+431701,9400ZZLUHWY,Holloway Road Underground Station
+431703,9400ZZLUICK,Ickenham Underground Station
+431706,9400ZZLUKBN,Kilburn Underground Station
+431709,9400ZZLUKBY,Kingsbury Underground Station
+431715,9400ZZLUKNB,Knightsbridge Underground Station
+431718,9400ZZLUKNG,Kennington Underground Station
+431721,9400ZZLUKOY,Kensington (Olympia) Underground Station
+431725,9400ZZLUKSH,Kentish Town Underground Station
+431728,9400ZZLUKSL,Kensal Green Underground Station
+431731,9400ZZLUKSX,King's Cross St. Pancras Underground Station
+431742,9400ZZLULAD,Ladbroke Grove Underground Station
+431750,9400ZZLULGT,Lancaster Gate Underground Station
+431752,9400ZZLULNB,London Bridge Underground Station
+431755,9400ZZLULRD,Latimer Road Underground Station
+431758,9400ZZLULSQ,Leicester Square Underground Station
+431768,9400ZZLULYN,Leyton Underground Station
+431771,9400ZZLULYS,Leytonstone Underground Station
+431774,9400ZZLUMBA,Marble Arch Underground Station
+431776,9400ZZLUMDN,Morden Underground Station
+431779,9400ZZLUMED,Mile End Underground Station
+431789,9400ZZLUMHL,Mill Hill East Underground Station
+431798,9400ZZLUMRH,Manor House Underground Station
+431806,9400ZZLUMVL,Maida Vale Underground Station
+431808,9400ZZLUMYB,Marylebone Underground Station
+431814,9400ZZLUNBP,Newbury Park Underground Station
+431817,9400ZZLUNDN,Neasden Underground Station
+431822,9400ZZLUNFD,Northfields Underground Station
+431825,9400ZZLUNGW,North Greenwich Underground Station
+431831,9400ZZLUNHG,Notting Hill Gate Underground Station
+431836,9400ZZLUNHT,Northolt Underground Station
+431840,9400ZZLUNOW,Northwood Underground Station
+431843,9400ZZLUNWH,Northwood Hills Underground Station
+431846,9400ZZLUNWY,North Wembley Underground Station
+431849,9400ZZLUOAK,Oakwood Underground Station
+431851,9400ZZLUODS,Old Street Underground Station
+431853,9400ZZLUOSY,Osterley Underground Station
+431859,9400ZZLUOXC,Oxford Circus Underground Station
+431866,9400ZZLUPAC,Paddington Underground Station
+431871,9400ZZLUPAH,Paddington (H&C Line)-Underground
+431874,9400ZZLUPCC,Piccadilly Circus Underground Station
+431879,9400ZZLUPCO,Pimlico Underground Station
+431881,9400ZZLUPKR,Park Royal Underground Station
+431884,9400ZZLUPLW,Plaistow Underground Station
+431887,9400ZZLUPNR,Pinner Underground Station
+431892,9400ZZLUPSG,Parsons Green Underground Station
+431895,9400ZZLUPVL,Perivale Underground Station
+431897,9400ZZLUPYB,Putney Bridge Underground Station
+431900,9400ZZLUQBY,Queensbury Underground Station
+431903,9400ZZLUQPS,Queen's Park Underground Station
+431908,9400ZZLURBG,Redbridge Underground Station
+431916,9400ZZLURMD,Richmond Underground Station
+431918,9400ZZLURSG,Ruislip Gardens Underground Station
+431920,9400ZZLURSM,Ruislip Manor Underground Station
+431923,9400ZZLURSP,Ruislip Underground Station
+431931,9400ZZLURVP,Ravenscourt Park Underground Station
+431934,9400ZZLURVY,Roding Valley Underground Station
+431937,9400ZZLURYL,Rayners Lane Underground Station
+431940,9400ZZLURYO,Royal Oak Underground Station
+431942,9400ZZLUSBC,Shepherd's Bush (Central) Underground Station
+431944,9400ZZLUSBM,Shepherd's Bush Market Underground Station
+431950,9400ZZLUSFB,Stamford Brook Underground Station
+431953,9400ZZLUSFS,Southfields Underground Station
+431955,9400ZZLUSGN,Stepney Green Underground Station
+431961,9400ZZLUSGT,Southgate Underground Station
+431963,9400ZZLUSHH,South Harrow Underground Station
+431969,9400ZZLUSJW,St. John's Wood Underground Station
+431971,9400ZZLUSKS,South Kensington Underground Station
+431978,9400ZZLUSKW,Stockwell Underground Station
+431983,9400ZZLUSNB,Snaresbrook Underground Station
+431989,9400ZZLUSRP,South Ruislip Underground Station
+431991,9400ZZLUSSQ,Sloane Square Underground Station
+431994,9400ZZLUSTD,Stratford Underground Station
+432001,9400ZZLUSTM,Stanmore Underground Station
+432003,9400ZZLUSUH,Sudbury Hill Underground Station
+432009,9400ZZLUSVS,Seven Sisters Underground Station
+432017,9400ZZLUSWK,Southwark Underground Station
+432020,9400ZZLUSWN,South Wimbledon Underground Station
+432022,9400ZZLUTAW,Totteridge & Whetstone Underground Station
+432025,9400ZZLUTBC,Tooting Bec Underground Station
+432027,9400ZZLUTBY,Tooting Broadway Underground Station
+432029,9400ZZLUTCR,Tottenham Court Road Underground Station
+432034,9400ZZLUTFP,Tufnell Park Underground Station
+432040,9400ZZLUTMH,Tottenham Hale Underground Station
+432042,9400ZZLUTMP,Temple Underground Station
+432045,9400ZZLUTNG,Turnham Green Underground Station
+432050,9400ZZLUTPN,Turnpike Lane Underground Station
+432052,9400ZZLUTWH,Tower Hill Underground Station
+432056,9400ZZLUUPB,Upminster Bridge Underground Station
+432058,9400ZZLUUPK,Upton Park Underground Station
+432064,9400ZZLUUPY,Upney Underground Station
+432066,9400ZZLUUXB,Uxbridge Underground Station
+432069,9400ZZLUVIC,Victoria Underground Station
+432074,9400ZZLUVXL,Vauxhall Underground Station
+432078,9400ZZLUWBN,West Brompton Underground Station
+432081,9400ZZLUWCY,White City Underground Station
+432084,9400ZZLUWFN,West Finchley Underground Station
+432087,9400ZZLUWHM,West Ham Underground Station
+432092,9400ZZLUWHP,West Hampstead Underground Station
+432097,9400ZZLUWIG,Willesden Green Underground Station
+432099,9400ZZLUWIM,Wimbledon Underground Station
+432101,9400ZZLUWIP,Wimbledon Park Underground Station
+432103,9400ZZLUWJN,Willesden Junction Underground Station
+432107,9400ZZLUWKA,Warwick Avenue Underground Station
+432109,9400ZZLUWKN,West Kensington Underground Station
+432112,9400ZZLUWLA,Wood Lane Underground Station
+432115,9400ZZLUWLO,Waterloo Underground Station
+432122,9400ZZLUWOF,Woodford Underground Station
+432125,9400ZZLUWOG,Wood Green Underground Station
+432127,9400ZZLUWOP,Woodside Park Underground Station
+432130,9400ZZLUWPL,Whitechapel Underground Station
+432135,9400ZZLUWR1,Bow Road Underground Station
+432136,9400ZZLUWRP,West Ruislip Underground Station
+432138,9400ZZLUWRR,Warren Street Underground Station
+432143,9400ZZLUWSD,Wanstead Underground Station
+432145,9400ZZLUWSM,Westminster Underground Station
+432150,9400ZZLUWSP,Westbourne Park Underground Station
+432158,9400ZZLUWYC,Wembley Central Underground Station
+432710,9400ZZRLHHL,Haste Hill (Ruislip Lido Railway)
+432711,9400ZZRLWBY,Woody Bay (Ruislip Lido Railway)
+432712,9400ZZRLWLN,Willow Lawn (Ruislip Lido Railway)

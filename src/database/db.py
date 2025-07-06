@@ -1,8 +1,9 @@
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
+from sqlalchemy import inspect
 # SQLite 连接（文件名为 tasks.db）
 SQLALCHEMY_DATABASE_URL = "sqlite:///./tasks.db"
 
@@ -10,7 +11,6 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./tasks.db"
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
-print(engine)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
@@ -39,14 +39,34 @@ class FlatsToRent(Base):
     # combined_score = Column(Float)
     run_time = Column(Date)
 
+    # Relationship to Score
+    # score = relationship("Score", back_populates="flat", uselist=False, cascade="all, delete-orphan")
+
+class StationCode(Base):
+    __tablename__ = "station_code"
+
+    station_name = Column(String(100), primary_key=True, index=True)
+    station_code = Column(String(11))
+
+class StationsTravelTime(Base):
+    __tablename__ = "stations_travel_time"
+
+    station_name = Column(String(100), primary_key=True, index=True)
+    destination = Column(String(200))
+    travel_time = Column(Integer)
+    walk_time = Column(Integer)
+
 class Score(Base):
     __tablename__ = "scores"
 
+    # unique_id = Column(String(50), ForeignKey("flats_to_rent.unique_id"), primary_key=True, index=True)
     unique_id = Column(String(50), primary_key=True, index=True)
     price_score = Column(Float)
     confort_score = Column(Float)
+    transport_score = Column(Float)
     combined_score = Column(Float)
 
+    # flat = relationship("FlatsToRent", back_populates="score")
 
 def init_db():
     # 删除旧数据库（仅测试时启用）
@@ -122,7 +142,64 @@ def insert_dataframe_to_db(df):
     finally:
         session.close()
 
+
+def insert_station_mapping_to_db(df):
+    inspector = inspect(engine)
+    if "station_code" not in inspector.get_table_names():
+        init_db()
+
+    session = SessionLocal()
+
+    try:
+        stations = []
+        for _, row in df.iterrows():
+            station = StationCode(
+                station_name=row["station_name"],
+                station_code=row["naptanID"],
+            )
+            stations.append(station)
+
+        session.bulk_save_objects(stations)
+        session.commit()
+        print(f"✅ Inserted {len(stations)} records into the database.")
+    except Exception as e:
+        session.rollback()
+        print("❌ Error inserting data:", e)
+    finally:
+        session.close()
+
+def insert_travel_time_to_db(df):
+    inspector = inspect(engine)
+    print(inspector.get_table_names())
+    if "stations_travel_time" not in inspector.get_table_names():
+        init_db()
+    session = SessionLocal()
+
+    try:
+        stations = []
+        for _, row in df.iterrows():
+            station = StationsTravelTime(
+                station_name=row["station_name"],
+                destination=row["best_destination"],
+                travel_time=row["min_duration"],
+                walk_time=row["walk_to_dest"],
+            )
+            stations.append(station)
+
+        session.bulk_save_objects(stations)
+        session.commit()
+        print(f"✅ Inserted {len(stations)} records into the database.")
+    except Exception as e:
+        session.rollback()
+        print("❌ Error inserting data:", e)
+    finally:
+        session.close()
+
 def insert_scores(df):
+    inspector = inspect(engine)
+    print(inspector.get_table_names())
+    if "scores" not in inspector.get_table_names():
+        init_db()
     session = SessionLocal()
 
     try:
