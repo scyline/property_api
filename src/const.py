@@ -24,3 +24,11 @@ col_travel = [
     "travel_time",
     "walk_time",
 ]
+
+col_scores = [
+    "unique_id",
+    "price_score",
+    "confort_score",
+    "transport_score",
+    "combined_score",
+]

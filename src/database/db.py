@@ -209,7 +209,8 @@ def insert_scores(df):
                 unique_id=row["unique_id"],
                 price_score = row["price_score"],
                 confort_score = row["confort_score"],
-                combined_score = row["combined_score"]
+                transport_score = row["transport_score"],
+                combined_score = row["combined_score"],
             )
             scores.append(score)
 
