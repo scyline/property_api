@@ -10,6 +10,7 @@ warnings.filterwarnings('ignore') # To supress warnings
 sns.set(style="darkgrid") # set the background for the graphs
 
 df = load_data()
+df.tail(25).to_excel("/Users/sqwu/Downloads/sample_data.xlsx")
 df["price_per_room"] = np.where(df["number_of_bedroom"].isna(),
                                 df["price"],
                                 df["price"]/df["number_of_bedroom"])
